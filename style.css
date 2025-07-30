@@ -1,0 +1,449 @@
+    body {
+        font-family: 'Inter', sans-serif;
+        overflow: hidden; /* Prevent body scroll */
+        padding: 16px;
+        background-color: #f0f0f0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+    }
+    #main-container {
+        height: calc(100vh - 32px);
+        width: calc(100vw - 32px);
+        margin: 0;
+        position: relative;
+        background-image: url("./images/bg1.png");
+        background-size: cover;  
+         background-repeat: no-repeat;
+        border-radius: 30px;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4-6px -2px rgba(0, 0, 0, 0.05);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+    }
+    #list-view {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+        overflow: hidden; /* Hide scrollbar but content can still be manipulated */
+        flex-grow: 1; /* Allow it to take available space */
+        display: flex;
+        position: relative;
+    }
+    #product-columns-container {
+        display: flex;
+        height: 100%;
+        width: 100%;
+        position: absolute; /* Position absolutely to allow animation */
+        transition: opacity 0.5s ease-in-out; /* Fade animation */
+    }
+    .product-column {
+        flex: 0 0 25vw;
+        transition: all 1.5s ease-in-out;
+        overflow: hidden;
+        border-right: 1px solid #e5e7eb;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items:center;
+        height:100%;
+    }
+    .green:hover, .green.stay-hover { background-color: #421F3F !important; }
+    .berry:hover, .berry.stay-hover { background-color: #26583F !important; }
+    .orange:hover, .orange.stay-hover { background-color: #DC891F !important; }
+    .strawberry:hover, .strawberry.stay-hover { background-color: #CF571A !important; }
+    .mango:hover, .mango.stay-hover { background-color: #C21B22 !important; }
+    .banana:hover, .banana.stay-hover { background-color: #1B5434 !important; }
+    .watermelon:hover, .watermelon.stay-hover { background-color: #31254B !important; }
+    .chocolate:hover, .chocolate.stay-hover { background-color: #1E92B7 !important; }
+    .product-column-image {
+        position:absolute;
+        top:43%;
+        left:50%;
+        transform:translate(-50%,-50%) scale(0.8);
+        opacity:0;
+        transition:0.7s;
+        height:70%;
+        object-fit:contain;
+        z-index:2;
+    }
+    .product-column:not(.no-hover):hover .product-column-image,
+    .product-column.stay-hover .product-column-image {
+        transform:translate(-50%,-50%) scale(1);
+        opacity:1;
+    }
+    .product-text-group {
+        position:relative;
+        transition:transform 1s ease-in-out;
+        width:100%;
+        text-align:start;
+        z-index:3;
+    }
+    .product-column:not(.no-hover):hover .product-text-group,
+    .product-column.stay-hover .product-text-group {
+        transform: translateY(120%);
+    }
+    .product-column.expanded .product-text-group {
+        transform: translateY(-0%);
+    }
+    .product-column-name { font-size:2.5rem; font-weight:bold; color:black; transition:color .7s; padding-left:2rem; }
+    .product-column:not(.no-hover):hover .product-column-name,
+    .product-column.stay-hover .product-column-name { color: white; }
+    .product-column-description { font-size:1.125rem; font-weight:bold; color:black; transition:color .7s; padding-left:2rem; }
+    .product-column:not(.no-hover):hover .product-column-description,
+    .product-column.stay-hover .product-column-description { color: white; }
+    .detailed-description {
+        font-size:1.125rem;
+        opacity:0;
+        transform:translateY(10px);
+        transition:opacity .5s ease, transform .5s ease;
+        padding-left:3rem;
+        padding-top:1rem;
+        color: white;
+        max-width: 30%;
+        white-space: normal;
+        overflow: hidden;
+        list-style: disc ;
+    }
+    .detailed-description.show {
+        opacity:1;
+        transform:translateY(0);
+    }
+    .view-more-small-button-column {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.5s, transform 0.5s, box-shadow 0.2s ease-in-out; /* Add box-shadow to transition */
+        margin-top: 1rem;
+        margin-left: 2rem;
+        padding: 0.5rem 1rem;
+        background: white;
+        color: #333;
+        border-radius: 9999px;
+        z-index: 4;
+        position: relative;
+        width: max-content;
+        max-width: 80%;
+        white-space: nowrap;
+    }
+    .product-column:not(.no-hover):hover .view-more-small-button-column,
+    .product-column.stay-hover .view-more-small-button-column {
+        opacity:1;
+        transform:translateY(0);
+    }
+    .view-more-small-button-column:hover {
+        animation: electrify 1s infinite alternate; /* Apply electrify animation on hover */
+    }
+
+    /* Electrify Keyframe Animation */
+    @keyframes electrify {
+        0% { box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px rgba(255, 255, 255, 0.5); }
+        50% { box-shadow: 0 0 15px rgba(255, 255, 255, 1), 0 0 25px rgba(255, 255, 255, 0.8), 0 0 35px rgba(255, 255, 255, 0.6); }
+        100% { box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px rgba(255, 255, 255, 0.5); }
+    }
+
+    .shrink-button {
+        display:none;
+        position:absolute;
+        top:5rem;
+        left:1.5rem;
+        padding:.5rem 1rem;
+        background:rgba(255,255,255,0.3);
+        color:#fff;
+        font-weight:500;
+        border-radius:9999px;
+        z-index:30;
+        cursor: pointer;
+    }
+    .product-column.expanded .shrink-button {
+        display:inline-block;
+    }
+    .product-column.expanded {
+        flex-basis:100vw!important;
+        z-index:10;
+    }
+    .product-column.shrunk {
+        flex-basis:0!important;
+        opacity:0;
+        transition: all .7s ease-in-out;
+        overflow:hidden;
+        width: 0;
+        margin-right: 0;
+        border-right: none;
+        pointer-events: none;
+        visibility: hidden;
+    }
+    .quantity-buttons {
+        position:absolute;
+        top:50%;
+        right:3rem;
+        transform:translateY(-50%);
+        display:flex;
+        flex-direction:column;
+        gap:1rem;
+        z-index:20;
+        opacity: 0;
+        pointer-events: none;
+        visibility: hidden; /* Added for initial state and reset */
+        transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+    .quantity-buttons button { background:black; color:white; padding:1rem; border-radius:9999px; opacity:0.3; cursor: pointer; }
+    .quantity-buttons button.active { background:white; color:black; opacity:1; }
+    .price-display {
+        position:absolute;
+        bottom:3rem;
+        left:50%;
+        transform:translateX(-50%);
+        font-size:5rem;
+        font-weight:600;
+        color:white;
+        opacity:0;
+        pointer-events:none;
+        visibility: hidden; /* Added for initial state and reset */
+        transition:opacity .5s ease, visibility 0.5s ease;
+    }
+    .add-to-cart-btn {
+        margin-top:1rem;
+        margin-left:2rem;
+        padding:1.5rem 3rem;
+        font-size:1rem;
+        font-weight:bold;
+        background:white;
+        color:#333;
+        border-radius:9999px;
+        z-index:5;
+        transition: opacity 0.5s ease, visibility 0.5s ease;
+        opacity: 0;
+        pointer-events: none; /* Added for initial state and reset */
+        visibility: hidden; /* Added for initial state and reset */
+        cursor: pointer;
+    }
+    .add-to-cart-btn.show-btn { opacity: 1; pointer-events: auto; visibility: visible; }
+    /* Updated navigation styles */
+    nav.expanded-nav {
+        position: absolute;
+        top: 100px; /* Adjust as needed, below header */
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 15; /* Adjusted z-index to be below header but above product columns */
+        display: flex;
+        gap: 1rem;
+        background: none; /* No background */
+        
+    }
+    nav.expanded-nav a {
+        color: whitesmoke;
+        font-weight: 500;
+        padding: 0.5rem 1rem;
+        border-radius: 9999px;
+        background: transparent;
+color: var( -- neon-red);
+border: 2px solid var( -- neon-red);
+border-radius: 8px;
+text-decoration: none;
+font-weight: 600; font-size: 1.1rem;
+
+
+    }
+    nav.expanded-nav a:hover {
+        background-color: rgba(0, 0, 0, 0.1); /* Light hover effect */
+    }
+    nav.expanded-nav a.active {
+       color: white;
+        background: rgba(0, 0, 0, 0.2); /* Slightly darker active state */
+        font-weight: 600;
+        transition: var( -- transition);
+box-shadow: 0 0 25px white;
+    }
+
+
+    .advantages-container {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out; /* Removed visibility delay */
+        position: absolute;
+        top: 60%; /* Adjusted to be below dosage */
+        right: 4%;
+        width: 25%;
+        color: white;
+        font-size: 1.1rem;
+        z-index: 6;
+        pointer-events: none;
+        visibility: hidden; /* Still apply initially hidden for accessibility */
+    }
+    .advantages-container.show-benefits {
+        opacity: 1;
+        pointer-events: auto;
+        visibility: visible;
+        transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out; /* Removed visibility delay */
+    }
+    .dosages-container {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out; /* Removed visibility delay */
+        position: absolute;
+        top: 55%; /* Adjusted to be above advantages */
+        right: 4%;
+        transform: translateY(-50%);
+        width: 25%;
+        color: white;
+        font-size: 1.1rem;
+        z-index: 6;
+        pointer-events: none;
+        visibility: hidden; /* Still apply initially hidden for accessibility */
+    }
+    .dosages-container.show-benefits {
+        opacity: 1;
+        transform: translateY(-50%);
+        pointer-events: auto;
+        visibility: visible;
+        transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out; /* Removed visibility delay */
+    }
+    .advantages-list li, .dosage-list li {
+        font-size: 1rem;
+    }
+    .advantages-list, .dosage-list {
+        list-style: disc inside;
+        padding-left: 1em;
+    }
+    .advantages-list li, .dosage-list li {
+        margin-bottom: 0.5em;
+        white-space: normal;
+    }
+    .hidden-with-animation {
+        opacity: 0;
+        pointer-events: none;
+        visibility: hidden; /* Removed !important */
+        transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+    .visible-with-animation {
+        opacity: 1;
+        pointer-events: auto;
+        visibility: visible; /* Removed !important */
+        transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+   @keyframes rotate {
+            0% { transform: translate(-50%, -50%) scale(1) rotateZ(0deg); }
+            100% { transform: translate(-50%, -50%) scale(1) rotateZ(360deg); }
+        }
+    .product-column.expanded .product-column-image {
+            top: 50%;
+            left: 50%;
+            animation: rotate 1s linear 1;
+            z-index: 2;
+        }
+    .product-column-bg-name {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 9vw;
+        font-weight: bold;
+        color: rgba(255, 255, 255, 0.2);
+        opacity: 0;
+        z-index: 1;
+        white-space: nowrap;
+        overflow: hidden;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 90%;
+        height: auto;
+        transition: opacity 1.5s ease-in-out;
+    }
+    .product-column.expanded .product-column-bg-name {
+        opacity: 1.5;
+    }
+
+    /* Navigation buttons */
+    .navigation-buttons {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 25; /* Above product columns but below expanded product */
+        display: flex;
+        gap: 15px;
+    }
+
+    .navigation-buttons button {
+        background-color: rgba(0, 0, 0, 0.7);
+        color: white;
+        padding: 10px 20px;
+        border-radius: 9999px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .navigation-buttons button:hover {
+        background-color: rgba(0, 0, 0, 0.9);
+    }
+
+    .navigation-buttons button:disabled {
+        background-color: rgba(0, 0, 0, 0.3);
+        cursor: not-allowed;
+    }
+
+    .background-icons {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden; /* Ensure image stays within bounds */
+        display: none; /* Hidden by default */
+    }
+
+    .product-column.expanded .background-icons {
+        display: block; /* Show when column is expanded */
+    }
+
+    .bg-icon-bottom-left {
+        position: absolute;
+        bottom: -25%;
+        left: -4%;
+        opacity: 0.2;
+        z-index: 0;
+    }
+    .bg-icon-top-right {
+        position: absolute;
+        top: -20%;
+        right: 10%;
+        opacity: 0.2;
+        z-index: 0;
+    }
+    .bg-icon-center-left {
+        position: absolute;
+        top: 30%;
+        left: 15%;
+        transform: translateY(-50%);
+        opacity: 0.2;
+        z-index: 0;
+    }
+    .bg-icon-center-right {
+        position: absolute;
+        top: 80%;
+        right: 25%;
+        transform: translateY(-50%);
+        opacity: 0.2;
+        z-index: 0;
+    }
+
+    /* NEW CLASS FOR DEFINITIVE HIDING */
+    .hidden-completely {
+        display: none !important; /* Force hide */
+        opacity: 0 !important; /* Ensure no visual trace */
+        pointer-events: none !important; /* Make it non-interactive */
+        visibility: hidden !important; /* Ensure it's not readable by screen readers */
+    }
+
+    /* CRITICAL Z-INDEX ADJUSTMENTS */
+    header {
+        z-index: 50; /* Ensure header is always on top */
+    }
+
+    #top-right-links {
+        z-index: 51; 
+    }

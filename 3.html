@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Vital Foods</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+    <link href="style.css" rel="stylesheet"> 
+    <script src="1.js"></script>
+
+</head>
+<body>
+    <div id="main-container" class="relative flex flex-col rounded-3xl shadow-xl">
+        <header class="absolute top-0 left-0 right-0 p-6 flex justify-between items-center z-20 bg-none">
+            <img alt="SmoothieJuicy Logo" src="./images/logonew1.png" class="h-12 w-auto" />
+            <div id="top-right-links" class="relative z-30 flex items-center space-x-4">
+                <div class="relative">
+                    <a href="cart.html" class="flex items-center justify-center w-12 h-12 rounded-full bg-gray-200 text-gray-800 hover:bg-gray-300 relative">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                        </svg>
+                    </a>
+                    <span id="cart-item-count" class="absolute -top-1 -right-1 flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-red-500 rounded-full">0</span>
+                </div>
+                <button id="profile-btn" class="w-10 h-10 bg-gray-800 text-white rounded-full"></button>
+                <div id="profile-menu" class="hidden absolute right-0 mt-2 bg-white shadow-lg">
+                    <a href="#" class="block px-4 py-2">My Account</a>
+                    <a href="#" class="block px-4 py-2">Settings</a>
+                    <a href="#" class="block px-4 py-2">Logout</a>
+                </div>
+            </div>
+        </header>
+
+        <nav id="main-nav" class="absolute top-0 left-0 right-0 p-6 flex justify-center items-center z-20 hidden">
+    <a href="3.html" id="nav-products-expanded" class="px-4 py-2 rounded-full">Products</a>
+    <a href="contact.html" id="nav-contact-expanded" class="px-4 py-2 rounded-full">Contact</a>
+</nav>
+
+        <div id="list-view" class="w-full h-full flex-grow relative">
+            <div id="product-columns-container"></div>
+        </div>
+
+        <div class="navigation-buttons">
+            <button id="prev-btn">Previous</button>
+            <button id="next-btn">Next</button>
+        </div>
+    </div>
+
+    <template id="desc-green">
+      Zinc helps with immunity, healing, and diabetes management.
+      Magnesium supports muscle, nerve, and bone health.
+      Combination reduces migraines, blood pressure, and ulcerative colitis risk
+    </template>
+    <template id="desc-berry">
+        Natural blend of ginger, lemon grass oil, and curcumin.
+        Fights throat infections and enhances immunity.
+        Soothes throat and provides anti-inflammatory benefits.
+</template>
+    <template id="desc-orange">
+        Curcumin (from turmeric) has anti-inflammatory and antioxidant properties.
+        Used to treat arthritis, digestive disorders, and pain.
+        Oral dispersible film ensures better absorption with minimal side effects.
+    </template>
+    <template id="desc-strawberry">
+        Essential for bone health and calcium regulation.
+        Helps in preventing respiratory and autoimmune diseases.
+        Supports immune system and COVID-19 protection.
+    </template>
+    <template id="desc-mango">
+        Contains Anthocyanin and Fenugreek Extract to manage blood sugar.
+        Improves insulin sensitivity and reduces oxidative stress.
+        Shown to be more effective than conventional diabetic medicine in studies
+    </template>
+    <template id="desc-banana">
+        Rich in Antioxidants – Contains catechins like EGCG that protect against oxidative stress and support immune health.
+        Boosts Metabolism – Enhances fat burning and supports weight management.
+        Supports Heart & Brain Health – May improve blood flow, lower cholesterol, and provide neuroprotective effects.
+    </template>
+    <template id="desc-watermelon">
+        Helps in managing healthy sleep cycles.
+        Valerian acts as a natural relaxant and supports calmness.
+        ODF format ensures fast absorption and better compliance.
+    </template>
+    <template id="desc-chocolate">
+        Prevents acidity, ulcers, and supports gut protection.
+        Reduces GERD and ulcer formation.
+        ODF ensures high purity and quick symptom control.
+    </template>
+
+    <template id="adv-green">
+        Supports healthy bone structure;Aids in immune function;May help regulate blood sugar levels;Contributes to antioxidant defense.
+    </template>
+    <template id="adv-berry">
+        Soothes throat irritation;Helps clear nasal passages;Contains natural extracts.
+    </template>
+    <template id="adv-orange">
+        Provides anti-inflammatory benefits;Supports joint health;Contributes to overall well-being.
+    </template>
+    <template id="adv-strawberry">
+        Promotes calcium absorption;Essential for bone density;Prevents osteoporosis.
+    </template>
+    <template id="adv-mango">
+        Helps manage diabetes;Potent antioxidant;Supports glucose uptake;Reduces oxidative stress.
+    </template>
+    <template id="adv-banana">
+        Supports healthy hair & nails;Improves skin barrier;Aids fatty acid synthesis;Protects from UV light.
+    </template>
+    <template id="adv-watermelon">
+        Regulates sleep cycles;Promotes relaxation;Combats insomnia;Natural sedative properties.
+    </template>
+    <template id="adv-chocolate">
+        Helps cure ulcers;Reduces acidity & bloating;Supports gut health;Anti-ulcerogenic properties.
+    </template>
+
+    <template id="dos-green">
+        Recommended daily intake: 1 strip; Take with food.
+    </template>
+    <template id="dos-berry">
+        For adults: 1-2 strips as needed; Do not exceed 6 strips per day.
+    </template>
+    <template id="dos-orange">
+        Take 1 strip daily; Consult your doctor for specific dosage.
+    </template>
+    <template id="dos-strawberry">
+        Adults: 1 strip daily; For children, consult a pediatrician.
+    </template>
+    <template id="dos-mango">
+        One strip before meals; Monitor blood sugar levels regularly.
+    </template>
+    <template id="dos-banana">
+        Take 1 strip in the morning; Can be dissolved in water or taken directly.
+    </template>
+    <template id="dos-watermelon">
+        1 strip 30 minutes before sleep; Do not operate heavy machinery after use.
+    </template>
+    <template id="dos-chocolate">
+        1 strip after heavy meals; Not recommended for pregnant women.
+    </template>
+
+    <div id="checkout-modal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-75 flex items-center justify-center z-50">
+        <div class="bg-white p-8 rounded-lg shadow-xl w-96">
+            <h2 class="text-2xl font-bold mb-4 text-gray-800">Enter Your Details</h2>
+            <form id="checkout-form">
+                <div class="mb-4">
+                    <label for="customer-name" class="block text-gray-700 text-sm font-bold mb-2">Name:</label>
+                    <input type="text" id="customer-name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                </div>
+                <div class="mb-4">
+                    <label for="customer-email" class="block text-gray-700 text-sm font-bold mb-2">Email:</label>
+                    <input type="email" id="customer-email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                </div>
+                <div class="mb-6">
+                    <label for="customer-phone" class="block text-gray-700 text-sm font-bold mb-2">Phone:</label>
+                    <input type="tel" id="customer-phone" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                </div>
+                <div class="flex items-center justify-between">
+                    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                        Confirm Purchase
+                    </button>
+                    <button type="button" id="cancel-checkout" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

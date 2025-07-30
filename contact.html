@@ -1,0 +1,171 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <script src="https://cdn.tailwindcss.com"></script>
+      <link href="./tailwind_output.css" rel="stylesheet">
+      <link rel="icon" href="./images/capinn.png" type="image/icon type">
+      <style>
+          @media (min-width: 950px) and (max-width:1280px) {
+    .address-mobile{
+        display: flex;
+        flex-direction: row;
+    }
+    .card-1{
+        width:600px
+    }
+}
+@media (min-width:1281px) {
+    .card-1{
+        margin-bottom: 32px;
+    }
+}
+        /* Message Box styles - copied from cart.html for consistency */
+        .message-box {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 8px;
+            color: white;
+            font-weight: bold;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            display: none; /* Hidden by default */
+        }
+        .message-box.success {
+            background-color: #4CAF50; /* A standard green */
+        }
+        .message-box.error {
+            background-color: #cc3333; /* Consistent red */
+        }
+        .hidden {
+            display: none;
+        }
+      </style>
+</head>
+<body>
+    <section class="relative flex overflow-hidden flex-col min-h-screen bg-gray-900 justify-center items-center">
+       
+
+        <main class="self-center w-full max-w-md my-10 bg-gray-800 p-5 rounded-md shadow-sm">
+             <a href="#" onclick="history.back()" class="absolute top-25 px-3 py-2 text-white text-sm hover:text-gray-300 z-10  bg-indigo-600  rounded-[2rem]">
+            back </a>
+            <div class="text-center">
+                <h1 class="my-3 text-3xl font-semibold text-gray-100">Contact Us</h1>
+                <p class="text-gray-400">Fill up the form below to send us a message.</p>
+            </div>
+            <div class="m-7">
+                <form id="contactForm" class="flex flex-col self-stretch my-auto w-full text-base">
+
+                    <div class="mb-6">
+                        <label for="name" class="block mb-2 text-sm text-gray-400">Full Name</label>
+                        <input type="text" id="name" name="name" placeholder="John Doe" required
+                            class="w-full px-3 py-2 h-12 rounded-sm placeholder-gray-500 text-gray-900 bg-gray-100 text-sm focus:outline-none" />
+                    </div>
+
+                    <div class="mb-6">
+                        <label for="email" class="block mb-2 text-sm text-gray-400">Email Address</label>
+                        <input type="email" id="email" name="email" placeholder="you@company.com" required
+                            class="w-full px-3 py-2 h-12 rounded-sm placeholder-gray-500 text-gray-900 bg-gray-100 text-sm focus:outline-none" />
+                    </div>
+
+                    <div class="mb-6">
+                        <label for="phone" class="block mb-2 text-sm text-gray-400">Phone Number</label>
+                        <input type="text" id="phone" name="phone" placeholder="+1 (555) 1234-567" required
+                            class="w-full px-3 py-2 h-12 rounded-sm placeholder-gray-500 text-gray-900 bg-gray-100 text-sm focus:outline-none" />
+                    </div>
+
+                    <div class="mb-6">
+                        <label for="message" class="block mb-2 text-sm text-gray-400">Your Message</label>
+                        <textarea rows="5" id="message" name="message" placeholder="Your Message" required
+                            class="w-full px-3 py-2 rounded-sm placeholder-gray-500 text-gray-900 bg-gray-100 text-sm focus:outline-none"></textarea>
+                    </div>
+
+                    <input type="hidden" name="subject" class="hidden">
+                    <button type="submit" name="Send" id="contactSubmitBtn"
+                        class="w-full bg-indigo-600 inline-block text-white no-underline hover:text-indigo-100 py-4 px-4 rounded-sm focus:outline-none">
+                        Send Message
+                    </button>
+                    <p class="text-base text-center text-gray-400 mt-4" id="result"></p>
+                </form>
+            </div>
+        </main>
+    </section>
+
+    <div id="message-box" class="message-box"></div>
+
+    <script>
+        const contactForm = document.getElementById('contactForm');
+        const contactSubmitBtn = document.getElementById('contactSubmitBtn');
+        const messageBox = document.getElementById('message-box');
+
+        function showMessage(message, type) {
+            messageBox.textContent = message;
+            messageBox.className = `message-box ${type}`;
+            messageBox.style.display = 'block';
+
+            setTimeout(() => {
+                messageBox.style.display = 'none';
+            }, 5000);
+        }
+
+        contactForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const message = document.getElementById('message').value.trim();
+            const subject = "New Contact Form Submission";
+
+            if (!name || !email || !phone || !message) {
+                showMessage("Please fill in all required fields.", "error");
+                return;
+            }
+
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                showMessage("Please enter a valid email address.", "error");
+                return;
+            }
+
+            const formData = {
+                name: name,
+                email: email,
+                phone: phone,
+                message: message,
+                subject: subject
+            };
+
+            contactSubmitBtn.disabled = true;
+            contactSubmitBtn.textContent = 'Sending...';
+
+            try {
+                const response = await fetch('http://localhost:3000/send-contact-email', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData),
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    showMessage("Your message has been sent successfully!", "success");
+                    contactForm.reset();
+                } else {
+                    showMessage(`Failed to send message: ${data.message}`, "error");
+                }
+            } catch (error) {
+                console.error('Error sending contact form:', error);
+                showMessage("There was a problem sending your message. Please try again.", "error");
+            } finally {
+                contactSubmitBtn.disabled = false;
+                contactSubmitBtn.textContent = 'Send Message';
+            }
+        });
+    </script>
+</body>
+</html>
