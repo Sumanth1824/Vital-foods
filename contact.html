@@ -1,0 +1,180 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <script src="https://cdn.tailwindcss.com"></script>
+      <link href="./tailwind_output.css" rel="stylesheet">
+      <link rel="icon" href="./images/capinn.png" type="image/icon type">
+      <style>
+          @media (min-width: 950px) and (max-width:1280px) {
+    .address-mobile{
+        display: flex;
+        flex-direction: row;
+    }
+    .card-1{
+        width:600px
+    }
+}
+@media (min-width:1281px) {
+    .card-1{
+        margin-bottom: 32px;
+    }
+}
+        .message-box {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 8px;
+            color: white;
+            font-weight: bold;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            display: none;
+        }
+        .message-box.success {
+            background-color: #4CAF50;
+        }
+        .message-box.error {
+            background-color: #cc3333;
+        }
+        .hidden {
+            display: none;
+        }
+      </style>
+</head>
+<body>
+    <section class="relative flex overflow-hidden flex-col min-h-screen bg-gray-900 justify-center items-center">
+       
+
+        <main class="self-center w-full max-w-md my-10 bg-gray-800 p-5 rounded-md shadow-sm">
+             <a href="#" onclick="history.back()" class="absolute top-25 px-3 py-2 text-white text-sm hover:text-gray-300 z-10  bg-indigo-600  rounded-[2rem]">
+            back </a>
+            <div class="text-center">
+                <h1 class="my-3 text-3xl font-semibold text-gray-100">Contact Us</h1>
+                <p class="text-gray-400">Fill up the form below to send us a message.</p>
+            </div>
+            <div class="m-7">
+                <form id="contactForm" class="flex flex-col self-stretch my-auto w-full text-base">
+                    <div class="mb-6">
+                        <label for="name" class="block mb-2 text-sm text-gray-400">Full Name</label>
+                        <input type="text" id="name" name="name" placeholder="John Doe" required class="w-full px-3 py-2 h-12 rounded-sm placeholder-gray-500 text-gray-900 bg-gray-100 text-sm focus:outline-none" />
+                    </div>
+                    <div class="mb-6">
+                        <label for="email" class="block mb-2 text-sm text-gray-400">Email Address</label>
+                        <input type="email" id="email" name="email" placeholder="john.doe@example.com" required class="w-full px-3 py-2 h-12 rounded-sm placeholder-gray-500 text-gray-900 bg-gray-100 text-sm focus:outline-none" />
+                    </div>
+                    <div class="mb-6">
+                        <label for="phone" class="block mb-2 text-sm text-gray-400">Phone Number (Optional)</label>
+                        <input type="tel" id="phone" name="phone" placeholder="+1 (555) 123-4567" class="w-full px-3 py-2 h-12 rounded-sm placeholder-gray-500 text-gray-900 bg-gray-100 text-sm focus:outline-none" />
+                    </div>
+                    <div class="mb-6">
+                        <label for="message" class="block mb-2 text-sm text-gray-400">Your Message</label>
+                        <textarea id="message" name="message" rows="5" placeholder="Type your message here..." required class="w-full px-3 py-2 rounded-sm placeholder-gray-500 text-gray-900 bg-gray-100 text-sm focus:outline-none"></textarea>
+                    </div>
+                    <div class="mb-6 flex justify-between items-center">
+                        <div class="flex items-center">
+                            <input type="checkbox" id="agree" name="agree" class="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out" />
+                            <label for="agree" class="ml-2 text-sm text-gray-400">I agree to the <a href="#" class="text-indigo-600 hover:underline">terms and conditions</a></label>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <button type="submit" class="w-full px-3 py-4 text-white bg-indigo-600 rounded-md focus:bg-indigo-700 focus:outline-none">
+                            Send Message
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </main>
+
+        <div class="mt-8 flex flex-col items-center address-mobile">
+            <div class="card-1 flex flex-col items-center p-6 bg-gray-800 rounded-md shadow-sm m-4 max-w-xs w-full">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin text-indigo-600 mb-4 h-12 w-12">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                    <circle cx="12" cy="10" r="3"></circle>
+                </svg>
+                <h3 class="text-xl font-semibold text-gray-100 mb-2">Address</h3>
+                <p class="text-gray-400 text-center">
+                    <a href="https://www.google.com/maps/search/Vital+Food+Adelaide+CBD" target="_blank" class="text-gray-400 hover:underline">
+                        Level 2, 269 Portrush Road, SA 5073
+                    </a>
+                </p>
+            </div>
+            <div class="flex flex-col items-center p-6 bg-gray-800 rounded-md shadow-sm m-4 max-w-xs w-full">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-phone text-indigo-600 mb-4 h-12 w-12">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-3.1-8.63A2 2 0 0 1 4.11 2H7.07a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-1.18 2.19l-.7.35a18.79 18.79 0 0 0 6.14 6.14l.35-.7a2 2 0 0 1 2.19-1.18 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                </svg>
+                <h3 class="text-xl font-semibold text-gray-100 mb-2">Phone</h3>
+                <p class="text-gray-400 text-center">
+                    <a href="tel:+61 0493608107" class="text-gray-400 hover:underline">
+                        +61 0493608107
+                    </a>
+                </p>
+            </div>
+            <div class="flex flex-col items-center p-6 bg-gray-800 rounded-md shadow-sm m-4 max-w-xs w-full">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail text-indigo-600 mb-4 h-12 w-12">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                    <polyline points="22,6 12,13 2,6"></polyline>
+                </svg>
+                <h3 class="text-xl font-semibold text-gray-100 mb-2">Email</h3>
+                <p class="text-gray-400 text-center">
+                    <a href="mailto:vitalfood.au@gmail.com" class="text-gray-400 hover:underline">
+                        vitalfood.au@gmail.com
+                    </a>
+                </p>
+            </div>
+        </div>
+
+        <div id="message-box" class="message-box"></div>
+
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const contactForm = document.getElementById('contactForm');
+            const messageBox = document.getElementById('message-box');
+
+            function showMessage(message, type) {
+                messageBox.textContent = message;
+                messageBox.className = `message-box ${type}`;
+                messageBox.style.display = 'block';
+                setTimeout(() => {
+                    messageBox.style.display = 'none';
+                }, 3000);
+            }
+
+            contactForm.addEventListener('submit', async function(event) {
+                event.preventDefault();
+
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                const phone = document.getElementById('phone').value;
+                const message = document.getElementById('message').value;
+
+                try {
+                    const response = await fetch('http://localhost:3000/send-contact-email', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ name, email, phone, message })
+                    });
+
+                    const result = await response.json();
+
+                    if (result.success) {
+                        showMessage('Message sent successfully!', 'success');
+                        contactForm.reset();
+                    } else {
+                        showMessage('Failed to send message: ' + (result.message || 'Unknown error'), 'error');
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    showMessage('There was an error connecting to the server. Please try again later.', 'error');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
